@@ -97,7 +97,7 @@ class DataVisualizer:
         # Flatten column names
         comparison_data.columns = ['_'.join(col).strip() for col in comparison_data.columns]
         comparison_data = comparison_data.reset_index()
-        comparison_data['video_type'] = comparison_data['is_short'].map({True: 'Shorts', False: 'Long-form'})
+        comparison_data['video_type'] = comparison_data['is_short'].apply(lambda x: '쇼츠' if x else '롱폼')
         
         # Create subplot with multiple metrics
         fig = make_subplots(
@@ -180,7 +180,7 @@ class DataVisualizer:
         }).reset_index()
         
         monthly_data['month_str'] = monthly_data['published_at'].astype(str)
-        monthly_data['video_type'] = monthly_data['is_short'].map({True: 'Shorts', False: 'Long-form'})
+        monthly_data['video_type'] = monthly_data['is_short'].apply(lambda x: '쇼츠' if x else '롱폼')
         
         # Create subplot with uploads and average views
         fig = make_subplots(

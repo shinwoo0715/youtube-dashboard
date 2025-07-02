@@ -26,64 +26,186 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for modern UI/UX
+# Revolutionary UI/UX Design System
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
     
-    .main {
-        font-family: 'Noto Sans KR', sans-serif;
+    :root {
+        --primary: #FF0000;
+        --primary-light: #FF6B6B;
+        --primary-dark: #CC0000;
+        --secondary: #4ECDC4;
+        --accent: #FFD93D;
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8FAFC;
+        --bg-tertiary: #F1F5F9;
+        --text-primary: #1E293B;
+        --text-secondary: #64748B;
+        --border: #E2E8F0;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
     
+    /* Global Styles */
+    .main {
+        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    
+    /* Glassmorphism Header */
     .main-header {
         text-align: center;
-        padding: 3rem 2rem;
-        background: linear-gradient(135deg, #FF0000 0%, #FF6B6B 50%, #FF9999 100%);
-        color: white;
-        border-radius: 20px;
-        margin-bottom: 2rem;
-        box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        padding: 4rem 3rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 30px;
+        margin: 2rem 0 3rem 0;
         position: relative;
         overflow: hidden;
+        box-shadow: var(--shadow-2xl);
     }
     
     .main-header::before {
         content: '';
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-        animation: shine 3s infinite;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        animation: shimmer 3s infinite;
     }
     
-    @keyframes shine {
-        0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
-        100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
     }
     
     .main-header h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #FF0000, #FF6B6B, #FFD93D);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none;
+        letter-spacing: -0.02em;
     }
     
     .main-header p {
-        font-size: 1.1rem;
-        opacity: 0.9;
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.9);
         font-weight: 400;
+        letter-spacing: 0.01em;
     }
     
-    .metric-card {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        padding: 1.5rem;
-        border-radius: 15px;
-        border: 1px solid #e9ecef;
-        margin: 0.75rem 0;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        transition: all 0.3s ease;
+    /* Sidebar Design */
+    .sidebar .stSelectbox, .sidebar .stTextInput, .sidebar .stTextArea, .sidebar .stNumberInput {
+        margin-bottom: 1rem;
+    }
+    
+    .sidebar .stSelectbox > div > div {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .sidebar .stTextInput > div > div > input {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        padding: 12px 16px;
+        font-weight: 500;
+    }
+    
+    .sidebar .stButton > button {
+        width: 100%;
+        height: 3.5rem;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        background: linear-gradient(135deg, #FF0000 0%, #FF6B6B 100%);
+        border: none;
+        color: white;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .sidebar .stButton > button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+    
+    .sidebar .stButton > button:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .sidebar .stButton > button:hover::before {
+        left: 100%;
+    }
+    
+    /* Enhanced Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        height: 3.5rem;
+        padding: 12px 24px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #FF0000 0%, #FF6B6B 100%);
+        color: white !important;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    /* Glassmorphism Cards */
+    .metric-card, .element-container .stMetric {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin: 1rem 0;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
     }
@@ -94,141 +216,216 @@ st.markdown("""
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #FF0000, #FF6B6B, #FF9999);
+        height: 3px;
+        background: linear-gradient(90deg, #FF0000, #FF6B6B, #FFD93D, #4ECDC4);
     }
     
-    .metric-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    .metric-card:hover, .element-container .stMetric:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: var(--shadow-2xl);
+        background: rgba(255, 255, 255, 0.2);
     }
     
+    /* Data Tables */
+    .stDataFrame {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        backdrop-filter: blur(20px);
+    }
+    
+    .stDataFrame thead tr th {
+        background: linear-gradient(135deg, #FF0000 0%, #FF6B6B 100%);
+        color: white;
+        font-weight: 700;
+        padding: 16px;
+        border: none;
+    }
+    
+    .stDataFrame tbody tr:nth-child(even) {
+        background: rgba(248, 250, 252, 0.5);
+    }
+    
+    .stDataFrame tbody tr:hover {
+        background: rgba(255, 107, 107, 0.1);
+        transform: scale(1.01);
+        transition: all 0.2s ease;
+    }
+    
+    /* Progress and Status */
     .progress-container {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 1.5rem;
-        border-radius: 15px;
-        margin: 1.5rem 0;
-        border: 1px solid #dee2e6;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        padding: 2rem;
+        border-radius: 20px;
+        margin: 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: var(--shadow-lg);
     }
     
     .error-message {
-        background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        background: rgba(255, 235, 238, 0.9);
+        backdrop-filter: blur(10px);
         color: #c62828;
-        padding: 1.5rem;
-        border-radius: 15px;
-        border-left: 5px solid #c62828;
-        margin: 1.5rem 0;
-        box-shadow: 0 5px 15px rgba(198, 40, 40, 0.1);
-        animation: slideIn 0.5s ease;
+        padding: 2rem;
+        border-radius: 20px;
+        border-left: 5px solid #FF4444;
+        margin: 2rem 0;
+        box-shadow: var(--shadow-lg);
+        animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .success-message {
-        background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+        background: rgba(232, 245, 232, 0.9);
+        backdrop-filter: blur(10px);
         color: #2e7d32;
-        padding: 1.5rem;
-        border-radius: 15px;
-        border-left: 5px solid #2e7d32;
-        margin: 1.5rem 0;
-        box-shadow: 0 5px 15px rgba(46, 125, 50, 0.1);
-        animation: slideIn 0.5s ease;
-    }
-    
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .sidebar .stSelectbox, .sidebar .stTextInput, .sidebar .stTextArea {
-        margin-bottom: 1.5rem;
-    }
-    
-    .sidebar .stButton > button {
-        width: 100%;
-        height: 3rem;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 1.1rem;
-        background: linear-gradient(135deg, #FF0000 0%, #FF6B6B 100%);
-        border: none;
-        color: white;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
-    }
-    
-    .sidebar .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
-    }
-    
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        height: 3rem;
-        padding: 10px 20px;
-        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-        border-radius: 10px;
-        border: 1px solid #dee2e6;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #FF0000 0%, #FF6B6B 100%);
-        color: white !important;
-        box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
-    }
-    
-    .element-container .stMetric {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        padding: 1rem;
-        border-radius: 10px;
-        border: 1px solid #e9ecef;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    }
-    
-    .feature-card {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
         padding: 2rem;
         border-radius: 20px;
-        border: 1px solid #e9ecef;
-        margin: 1rem 0;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        border-left: 5px solid #4CAF50;
+        margin: 2rem 0;
+        box-shadow: var(--shadow-lg);
+        animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Enhanced Expanders */
+    .streamlit-expanderHeader {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 16px 20px;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+    }
+    
+    .streamlit-expanderContent {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0 0 16px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Floating Action Elements */
+    .floating-widget {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: linear-gradient(135deg, #FF0000 0%, #FF6B6B 100%);
+        color: white;
+        padding: 1rem;
+        border-radius: 50%;
+        box-shadow: var(--shadow-xl);
+        cursor: pointer;
         transition: all 0.3s ease;
+        z-index: 1000;
     }
     
-    .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    .floating-widget:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: var(--shadow-2xl);
     }
     
-    .feature-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+    /* Plotly Chart Container */
+    .plotly-graph-div {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 1rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin: 1rem 0;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
         background: linear-gradient(135deg, #FF0000, #FF6B6B);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        border-radius: 10px;
     }
     
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #CC0000, #FF4444);
+    }
+    
+    /* Mobile Optimizations */
     @media (max-width: 768px) {
         .main-header h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
         
         .main-header {
-            padding: 2rem 1rem;
+            padding: 3rem 2rem;
+            margin: 1rem 0 2rem 0;
         }
         
         .metric-card {
-            font-size: 0.9rem;
-            padding: 1rem;
+            padding: 1.5rem;
         }
         
-        .feature-card {
-            padding: 1.5rem;
+        .stTabs [data-baseweb="tab"] {
+            padding: 10px 16px;
+            font-size: 0.9rem;
+        }
+        
+        .floating-widget {
+            bottom: 1rem;
+            right: 1rem;
+        }
+    }
+    
+    /* Loading Animations */
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
+        40%, 43% { transform: translateY(-10px); }
+        70% { transform: translateY(-5px); }
+        90% { transform: translateY(-2px); }
+    }
+    
+    .loading {
+        animation: pulse 2s infinite;
+    }
+    
+    .bounce {
+        animation: bounce 1s infinite;
+    }
+    
+    /* Dark Mode Support */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-tertiary: #334155;
+            --text-primary: #F8FAFC;
+            --text-secondary: #CBD5E1;
+            --border: #475569;
+        }
+        
+        .main {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         }
     }
 </style>
@@ -272,8 +469,26 @@ def display_success(success_msg):
 def main():
     initialize_session_state()
     
-    # Main header
-    st.markdown('<div class="main-header"><h1>📊 유튜브 채널 완전 분석</h1><p>모든 유튜브 채널의 완벽한 데이터 분석 도구</p></div>', unsafe_allow_html=True)
+    # Main header with enhanced features
+    st.markdown("""
+    <div class="main-header">
+        <h1>📊 유튜브 채널 완전 분석</h1>
+        <p>AI 기반 데이터 분석 · 실시간 트렌드 예측 · 성과 최적화</p>
+        <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <span style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;">✨ 실시간 분석</span>
+            <span style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;">🎯 성공 패턴 AI</span>
+            <span style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;">📈 트렌드 예측</span>
+            <span style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;">🔮 수익 예상</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Add floating help button
+    st.markdown("""
+    <div class="floating-widget" title="도움말">
+        <div style="font-size: 1.5rem;">❓</div>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Sidebar for inputs
     with st.sidebar:
@@ -506,13 +721,15 @@ def display_analysis_results():
             best_video = max(videos_data, key=lambda x: x.get('view_count', 0))
             st.metric("최고 조회수", f"{best_video.get('view_count', 0):,}")
     
-    # Create enhanced analysis tabs
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
+    # Create enhanced analysis tabs with new features
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
         "📈 성과 개요",
         "📅 업로드 패턴", 
         "🔥 인기 영상",
         "🔤 키워드 분석",
         "🎯 성공 패턴",
+        "💰 수익 분석",
+        "🤖 AI 추천",
         "📊 상세 데이터",
         "🔮 트렌드 예측",
         "📋 내보내기 & 리포트"
@@ -534,12 +751,18 @@ def display_analysis_results():
         display_success_patterns(visualizer)
     
     with tab6:
-        display_detailed_data()
+        display_revenue_analysis(visualizer, channel_info)
     
     with tab7:
-        display_trend_prediction(visualizer)
+        display_ai_recommendations(visualizer, channel_info)
     
     with tab8:
+        display_detailed_data()
+    
+    with tab9:
+        display_trend_prediction(visualizer)
+    
+    with tab10:
         display_export_options(visualizer)
 
 def display_performance_overview(visualizer):
@@ -640,12 +863,12 @@ def display_top_videos(visualizer):
         # Format the dataframe for display
         display_df = df[['title', 'published_at', 'view_count', 'like_count', 'comment_count', 'duration_formatted', 'is_short']].copy()
         display_df.columns = ['제목', '업로드일', '조회수', '좋아요', '댓글수', '길이', '유형']
-        display_df['유형'] = display_df['유형'].apply(lambda x: '쇼츠' if x else '롱폼')
+        display_df['유형'] = ['쇼츠' if x else '롱폼' for x in display_df['유형']]
         
         # Format numbers with commas
         for col in ['조회수', '좋아요', '댓글수']:
             if col in display_df.columns:
-                display_df[col] = display_df[col].apply(lambda x: f"{x:,}" if isinstance(x, (int, float)) else x)
+                display_df[col] = [f"{x:,}" if isinstance(x, (int, float)) else x for x in display_df[col]]
         
         st.dataframe(
             display_df,
@@ -922,6 +1145,317 @@ def display_trend_prediction(visualizer):
             st.success("🔥 높은 참여도를 유지하고 있습니다!")
         else:
             st.info("📊 평균적인 참여도입니다. 더 많은 상호작용을 시도해보세요")
+
+def display_revenue_analysis(visualizer, channel_info):
+    """Display revenue estimation and monetization analysis"""
+    st.subheader("💰 수익 분석 및 예상")
+    
+    videos_data = visualizer.videos_data
+    if not videos_data:
+        st.warning("수익 분석을 위한 데이터가 없습니다.")
+        return
+    
+    # Calculate revenue estimates
+    total_views = sum(video.get('view_count', 0) for video in videos_data)
+    subscriber_count = channel_info.get('subscriber_count', 0)
+    
+    # Revenue calculation (rough estimates based on industry averages)
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        # Ad revenue estimation (RPM: Revenue per Mille)
+        estimated_rpm = 1.5  # $1-3 per 1000 views average
+        ad_revenue = (total_views / 1000) * estimated_rpm
+        st.metric("예상 광고 수익", f"${ad_revenue:,.0f}")
+    
+    with col2:
+        # Sponsorship potential
+        if subscriber_count > 10000:
+            sponsor_rate = subscriber_count * 0.01  # $0.01 per subscriber
+            st.metric("스폰서십 잠재가치", f"${sponsor_rate:,.0f}")
+        else:
+            st.metric("스폰서십 잠재가치", "N/A")
+    
+    with col3:
+        # Monthly earning potential
+        recent_videos = [v for v in videos_data if (datetime.now() - v['published_at']).days <= 30]
+        monthly_views = sum(v.get('view_count', 0) for v in recent_videos)
+        monthly_revenue = (monthly_views / 1000) * estimated_rpm
+        st.metric("월 예상 수익", f"${monthly_revenue:,.0f}")
+    
+    with col4:
+        # Growth potential
+        if len(videos_data) >= 10:
+            recent_avg = sum(v.get('view_count', 0) for v in videos_data[-5:]) / 5
+            older_avg = sum(v.get('view_count', 0) for v in videos_data[-10:-5]) / 5
+            growth = ((recent_avg - older_avg) / older_avg * 100) if older_avg > 0 else 0
+            st.metric("성장률", f"{growth:+.1f}%")
+    
+    # Revenue breakdown chart
+    st.subheader("📊 수익원별 분석")
+    
+    # Create revenue sources data
+    revenue_sources = {
+        '광고 수익': ad_revenue,
+        '멤버십': ad_revenue * 0.3,  # Estimated membership revenue
+        '슈퍼챗': ad_revenue * 0.1,   # Estimated super chat
+        '머천다이즈': ad_revenue * 0.2  # Estimated merchandise
+    }
+    
+    import plotly.express as px
+    
+    fig = px.pie(
+        values=list(revenue_sources.values()),
+        names=list(revenue_sources.keys()),
+        title="예상 수익원 분포",
+        color_discrete_sequence=['#FF0000', '#FF6B6B', '#FFD93D', '#4ECDC4']
+    )
+    
+    fig.update_layout(
+        font=dict(family="Noto Sans KR, sans-serif"),
+        title_font=dict(size=16, family="Noto Sans KR, sans-serif")
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Revenue optimization tips
+    st.subheader("💡 수익 최적화 팁")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.write("**즉시 적용 가능:**")
+        tips = []
+        
+        if subscriber_count < 1000:
+            tips.append("• 1,000명 구독자 달성으로 수익화 시작")
+        if len([v for v in videos_data if v.get('duration_seconds', 0) > 480]) < 5:
+            tips.append("• 8분 이상 영상으로 중간 광고 삽입")
+        if monthly_views < 10000:
+            tips.append("• 업로드 주기 단축으로 노출 증대")
+        
+        if not tips:
+            tips = ["• 현재 수익화 조건을 잘 만족하고 있습니다!"]
+        
+        for tip in tips:
+            st.write(tip)
+    
+    with col2:
+        st.write("**장기 전략:**")
+        long_term_tips = [
+            "• 브랜드 협찬 및 제품 리뷰 콘텐츠",
+            "• 온라인 강의 또는 코칭 서비스",
+            "• 구독자 전용 멤버십 혜택",
+            "• 관련 상품 판매 (머천다이즈)"
+        ]
+        
+        for tip in long_term_tips:
+            st.write(tip)
+
+def display_ai_recommendations(visualizer, channel_info):
+    """Display AI-powered content recommendations"""
+    st.subheader("🤖 AI 기반 콘텐츠 추천")
+    
+    videos_data = visualizer.videos_data
+    if not videos_data:
+        st.warning("AI 추천을 위한 데이터가 없습니다.")
+        return
+    
+    # Analyze successful patterns
+    top_videos = sorted(videos_data, key=lambda x: x.get('view_count', 0), reverse=True)[:10]
+    
+    # AI-style recommendations based on data analysis
+    st.subheader("🎯 맞춤형 콘텐츠 전략")
+    
+    # Content type recommendation
+    shorts_performance = [v for v in top_videos if v.get('is_short', False)]
+    longform_performance = [v for v in top_videos if not v.get('is_short', False)]
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("### 📱 최적 콘텐츠 형식")
+        if len(shorts_performance) > len(longform_performance):
+            st.success("🎯 **쇼츠 콘텐츠 집중 추천**")
+            st.write("• 60초 이하 임팩트 있는 콘텐츠")
+            st.write("• 트렌딩 음악과 해시태그 활용")
+            st.write("• 빠른 편집과 시각적 효과")
+        else:
+            st.success("🎯 **롱폼 콘텐츠 집중 추천**")
+            st.write("• 10-15분 심층 분석 콘텐츠")
+            st.write("• 상세한 정보와 스토리텔링")
+            st.write("• 시리즈물로 구독자 유지")
+    
+    with col2:
+        st.markdown("### ⏰ 최적 업로드 시간")
+        
+        # Find best upload times
+        hour_performance = {}
+        day_performance = {}
+        
+        for video in top_videos:
+            hour = video['published_at'].hour
+            day = video['published_at'].strftime('%A')
+            
+            if hour not in hour_performance:
+                hour_performance[hour] = []
+            if day not in day_performance:
+                day_performance[day] = []
+                
+            hour_performance[hour].append(video.get('view_count', 0))
+            day_performance[day].append(video.get('view_count', 0))
+        
+        # Calculate average performance
+        best_hour = max(hour_performance.keys(), 
+                       key=lambda x: sum(hour_performance[x]) / len(hour_performance[x])) if hour_performance else 12
+        best_day = max(day_performance.keys(), 
+                      key=lambda x: sum(day_performance[x]) / len(day_performance[x])) if day_performance else "Sunday"
+        
+        day_names = {
+            'Monday': '월요일', 'Tuesday': '화요일', 'Wednesday': '수요일',
+            'Thursday': '목요일', 'Friday': '금요일', 'Saturday': '토요일', 'Sunday': '일요일'
+        }
+        
+        st.info(f"🕐 **{best_hour}시 업로드 추천**")
+        st.info(f"📅 **{day_names.get(best_day, best_day)} 업로드 추천**")
+    
+    # Title optimization
+    st.subheader("📝 제목 최적화 AI")
+    
+    # Analyze successful title patterns
+    successful_titles = [v['title'] for v in top_videos if v.get('title')]
+    
+    if successful_titles:
+        # Common words analysis
+        from collections import Counter
+        import re
+        
+        all_words = []
+        for title in successful_titles:
+            words = re.findall(r'\b\w+\b', title.lower())
+            all_words.extend(words)
+        
+        common_words = Counter(all_words).most_common(10)
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.write("**성공 키워드 TOP 5:**")
+            for word, count in common_words[:5]:
+                st.write(f"• {word} ({count}회)")
+        
+        with col2:
+            st.write("**제목 패턴 분석:**")
+            avg_length = sum(len(title) for title in successful_titles) / len(successful_titles)
+            question_count = sum(1 for title in successful_titles if '?' in title)
+            exclamation_count = sum(1 for title in successful_titles if '!' in title)
+            
+            st.write(f"• 최적 제목 길이: {avg_length:.0f}자")
+            st.write(f"• 물음표 사용: {question_count}개 영상")
+            st.write(f"• 느낌표 사용: {exclamation_count}개 영상")
+    
+    # Content gap analysis
+    st.subheader("🔍 콘텐츠 갭 분석")
+    
+    # Analyze upload frequency
+    if len(videos_data) >= 5:
+        recent_uploads = sorted(videos_data, key=lambda x: x['published_at'], reverse=True)[:5]
+        upload_gaps = []
+        
+        for i in range(1, len(recent_uploads)):
+            gap = (recent_uploads[i-1]['published_at'] - recent_uploads[i]['published_at']).days
+            upload_gaps.append(gap)
+        
+        avg_gap = sum(upload_gaps) / len(upload_gaps) if upload_gaps else 7
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if avg_gap > 14:
+                st.warning("⚠️ 업로드 주기가 너무 깁니다")
+                st.write("권장: 주 1-2회 업로드")
+            elif avg_gap < 2:
+                st.warning("⚠️ 너무 자주 업로드하고 있습니다")
+                st.write("권장: 품질 관리에 집중")
+            else:
+                st.success("✅ 적절한 업로드 주기")
+        
+        with col2:
+            # Suggest trending topics (mock data for demo)
+            st.write("**트렌딩 토픽 추천:**")
+            trending_topics = ["AI 활용법", "2025 트렌드", "효율적인 작업", "새로운 기술", "라이프스타일"]
+            for topic in trending_topics[:3]:
+                st.write(f"• {topic}")
+        
+        with col3:
+            st.write("**경쟁자 분석 필요:**")
+            st.write("• 유사 채널 벤치마킹")
+            st.write("• 차별화 포인트 발굴")
+            st.write("• 협업 기회 탐색")
+    
+    # Action plan
+    st.subheader("📋 실행 계획")
+    
+    st.markdown("""
+    ### 🎯 다음 30일 액션 플랜
+    
+    **1주차**: 콘텐츠 기획 및 제작
+    - [ ] 성공 키워드 기반 새 콘텐츠 기획
+    - [ ] 최적 시간대 업로드 스케줄 설정
+    - [ ] 썸네일 A/B 테스트 준비
+    
+    **2주차**: 최적화 및 분석
+    - [ ] 제목 패턴 적용 및 테스트
+    - [ ] 시청자 참여도 모니터링
+    - [ ] 댓글 및 커뮤니티 관리 강화
+    
+    **3주차**: 확장 및 실험
+    - [ ] 새로운 콘텐츠 형식 실험
+    - [ ] 협업 또는 게스트 출연 검토
+    - [ ] 시리즈 콘텐츠 기획
+    
+    **4주차**: 분석 및 개선
+    - [ ] 월간 성과 분석
+    - [ ] 다음 달 전략 수정
+    - [ ] 수익화 방안 검토
+    """)
+    
+    # Interactive recommendations
+    st.subheader("🔮 개인화된 추천")
+    
+    recommendation_type = st.selectbox(
+        "어떤 분야의 추천을 받고 싶으신가요?",
+        ["콘텐츠 주제", "편집 스타일", "마케팅 전략", "수익화 방법"]
+    )
+    
+    if recommendation_type == "콘텐츠 주제":
+        st.success("🎬 데이터 기반 추천 주제:")
+        st.write("• 시청자들이 가장 좋아하는 스타일의 심화 버전")
+        st.write("• 현재 트렌딩 중인 키워드와 채널 특성 결합")
+        st.write("• 계절성을 고려한 타이밍 콘텐츠")
+    
+    elif recommendation_type == "편집 스타일":
+        st.success("✂️ 편집 스타일 개선점:")
+        if len(shorts_performance) > len(longform_performance):
+            st.write("• 빠른 컷 편집과 역동적인 트랜지션")
+            st.write("• 시각적 임팩트를 위한 텍스트 오버레이")
+        else:
+            st.write("• 스토리텔링을 위한 자연스러운 편집")
+            st.write("• 정보 전달을 위한 그래픽 요소 활용")
+    
+    elif recommendation_type == "마케팅 전략":
+        st.success("📢 마케팅 전략:")
+        st.write("• 성공 영상의 키워드를 활용한 SEO 최적화")
+        st.write("• 시청자와의 상호작용 증대 방안")
+        st.write("• 소셜미디어 크로스 프로모션")
+    
+    else:  # 수익화 방법
+        st.success("💰 수익화 전략:")
+        if subscriber_count < 1000:
+            st.write("• 구독자 1000명 달성을 위한 콘텐츠 집중")
+        else:
+            st.write("• 다양한 수익원 개발 (스폰서십, 멤버십)")
+        st.write("• 브랜드 가치 구축을 위한 일관성 있는 콘텐츠")
 
 def display_keywords_analysis(visualizer):
     """Display keyword and content analysis"""
