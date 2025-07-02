@@ -74,11 +74,11 @@ class DataVisualizer:
             xaxis_tickformat=',',
             font=dict(family="Noto Sans KR, sans-serif"),
             title_font=dict(size=16, family="Noto Sans KR, sans-serif"),
-            legend=dict(
-                title="영상 유형",
-                labels={"true": "쇼츠", "false": "롱폼"}
-            )
+            legend=dict(title="영상 유형")
         )
+        
+        # Update legend labels
+        fig.for_each_trace(lambda t: t.update(name="쇼츠" if t.name == "True" else "롱폼"))
         return fig
     
     def create_shorts_vs_longform_comparison(self):
