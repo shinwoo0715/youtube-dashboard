@@ -528,8 +528,8 @@ def main():
         with st.expander("📊 기본 설정", expanded=True):
             max_videos = st.selectbox(
                 "분석할 최대 영상 수",
-                [50, 100, 200, 500, 1000, 2000],
-                index=2,
+                [10, 20, 50, 100, 200, 500, 1000, 2000, 5000],
+                index=4,
                 help="더 많은 영상 = 더 정확한 분석 (처리 시간 증가)"
             )
             
@@ -932,8 +932,7 @@ def display_success_patterns(visualizer):
                     keywords_data.append({
                         '키워드': keyword,
                         '영상수': data['count'],
-                        '평균 조회수': f"{data['avg_views']:,.0f}",
-                        '총 조회수': f"{data['total_views']:,.0f}"
+                        '평균 조회수': f"{data['avg_views']:,.0f}"
                     })
                 
                 if keywords_data:
@@ -948,11 +947,16 @@ def display_success_patterns(visualizer):
             if patterns.get('best_times'):
                 times_data = []
                 for time_info in patterns['best_times'][:5]:
-                    times_data.append({
-                        '시간대': f"{time_info['hour']}시",
-                        '영상수': time_info['count'],
-                        '평균 조회수': f"{time_info['avg_views']:,.0f}"
-                    })
+                    # Handle both dict and other formats safely
+                    if isinstance(time_info, dict):
+                        hour = time_info.get('hour', 0)
+                        count = time_info.get('count', 0)
+                        avg_views = time_info.get('avg_views', 0)
+                        times_data.append({
+                            '시간대': f"{hour}시",
+                            '영상수': count,
+                            '평균 조회수': f"{avg_views:,.0f}"
+                        })
                 
                 if times_data:
                     st.dataframe(pd.DataFrame(times_data), use_container_width=True, hide_index=True)
@@ -1178,7 +1182,18 @@ def display_revenue_analysis(visualizer, channel_info):
     
     with col3:
         # Monthly earning potential
-        recent_videos = [v for v in videos_data if (datetime.now() - v['published_at']).days <= 30]
+        from datetime import timezone
+        now = datetime.now(timezone.utc)
+        recent_videos = []
+        for v in videos_data:
+            pub_date = v['published_at']
+            if hasattr(pub_date, 'tz_localize'):
+                pub_date = pub_date.tz_localize('UTC') if pub_date.tz is None else pub_date
+            elif not hasattr(pub_date, 'tzinfo') or pub_date.tzinfo is None:
+                pub_date = pub_date.replace(tzinfo=timezone.utc)
+            
+            if (now - pub_date).days <= 30:
+                recent_videos.append(v)
         monthly_views = sum(v.get('view_count', 0) for v in recent_videos)
         monthly_revenue = (monthly_views / 1000) * estimated_rpm
         st.metric("월 예상 수익", f"${monthly_revenue:,.0f}")
@@ -1436,6 +1451,11 @@ def display_ai_recommendations(visualizer, channel_info):
     
     elif recommendation_type == "편집 스타일":
         st.success("✂️ 편집 스타일 개선점:")
+        # Get performance data for editing recommendations
+        top_videos = sorted(videos_data, key=lambda x: x.get('view_count', 0), reverse=True)[:10]
+        shorts_performance = [v for v in top_videos if v.get('is_short', False)]
+        longform_performance = [v for v in top_videos if not v.get('is_short', False)]
+        
         if len(shorts_performance) > len(longform_performance):
             st.write("• 빠른 컷 편집과 역동적인 트랜지션")
             st.write("• 시각적 임팩트를 위한 텍스트 오버레이")
@@ -1451,6 +1471,7 @@ def display_ai_recommendations(visualizer, channel_info):
     
     else:  # 수익화 방법
         st.success("💰 수익화 전략:")
+        subscriber_count = channel_info.get('subscriber_count', 0)
         if subscriber_count < 1000:
             st.write("• 구독자 1000명 달성을 위한 콘텐츠 집중")
         else:

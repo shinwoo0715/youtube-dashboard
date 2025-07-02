@@ -102,7 +102,7 @@ class DataVisualizer:
         # Create subplot with multiple metrics
         fig = make_subplots(
             rows=2, cols=2,
-            subplot_titles=('Average Views', 'Average Likes', 'Average Comments', 'Average Engagement Rate'),
+            subplot_titles=('평균 조회수', '평균 좋아요', '평균 댓글', '평균 참여율'),
             specs=[[{"secondary_y": False}, {"secondary_y": False}],
                    [{"secondary_y": False}, {"secondary_y": False}]]
         )
@@ -151,16 +151,22 @@ class DataVisualizer:
             color='is_short',
             size='like_count',
             hover_data=['title', 'duration_formatted'],
-            title='Video Duration vs Views',
+            title='영상 길이 vs 조회수',
             labels={
-                'duration_seconds': 'Duration (seconds)',
-                'view_count': 'Views',
-                'is_short': 'Video Type'
+                'duration_seconds': '영상 길이 (초)',
+                'view_count': '조회수',
+                'is_short': '영상 유형'
             },
             color_discrete_map={True: '#FF6B6B', False: '#4ECDC4'}
         )
         
-        fig.update_layout(height=400, xaxis_tickformat=',', yaxis_tickformat=',')
+        fig.update_layout(
+            height=400, 
+            xaxis_tickformat=',', 
+            yaxis_tickformat=',',
+            font=dict(family="Noto Sans KR, sans-serif"),
+            title_font=dict(size=16, family="Noto Sans KR, sans-serif")
+        )
         return fig
     
     def create_monthly_trends(self):
@@ -185,7 +191,7 @@ class DataVisualizer:
         # Create subplot with uploads and average views
         fig = make_subplots(
             rows=2, cols=1,
-            subplot_titles=('Monthly Upload Count', 'Average Views per Month'),
+            subplot_titles=('월별 업로드 수', '월별 평균 조회수'),
             vertical_spacing=0.1
         )
         
