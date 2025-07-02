@@ -1,0 +1,16 @@
+[project]
+name = "repl-nix-workspace"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "google-api-python-client>=2.174.0",
+    "isodate>=0.7.2",
+    "matplotlib>=3.10.3",
+    "numpy>=2.3.1",
+    "pandas>=2.3.0",
+    "plotly>=6.2.0",
+    "seaborn>=0.13.2",
+    "streamlit>=1.46.1",
+    "wordcloud>=1.9.4",
+]
