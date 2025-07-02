@@ -26,14 +26,14 @@ class DataVisualizer:
     def create_views_distribution(self):
         """Create views distribution histogram"""
         if self.df.empty:
-            return self._create_empty_chart("No data available")
+            return self._create_empty_chart("데이터가 없습니다")
         
         fig = px.histogram(
             self.df,
             x='view_count',
             nbins=30,
-            title='Views Distribution',
-            labels={'view_count': 'Views', 'count': 'Number of Videos'},
+            title='조회수 분포',
+            labels={'view_count': '조회수', 'count': '영상 수'},
             color_discrete_sequence=['#FF0000']
         )
         
@@ -41,7 +41,9 @@ class DataVisualizer:
             showlegend=False,
             height=400,
             xaxis_tickformat=',',
-            hovermode='x unified'
+            hovermode='x unified',
+            font=dict(family="Noto Sans KR, sans-serif"),
+            title_font=dict(size=16, family="Noto Sans KR, sans-serif")
         )
         
         return fig
@@ -49,7 +51,7 @@ class DataVisualizer:
     def create_engagement_chart(self):
         """Create engagement rate distribution"""
         if self.df.empty:
-            return self._create_empty_chart("No data available")
+            return self._create_empty_chart("데이터가 없습니다")
         
         fig = px.scatter(
             self.df,
@@ -58,16 +60,25 @@ class DataVisualizer:
             color='is_short',
             size='like_count',
             hover_data=['title', 'published_at'],
-            title='Engagement Rate vs Views',
+            title='참여율 vs 조회수',
             labels={
-                'view_count': 'Views',
-                'engagement_rate': 'Engagement Rate (%)',
-                'is_short': 'Video Type'
+                'view_count': '조회수',
+                'engagement_rate': '참여율 (%)',
+                'is_short': '영상 유형'
             },
             color_discrete_map={True: '#FF6B6B', False: '#4ECDC4'}
         )
         
-        fig.update_layout(height=400, xaxis_tickformat=',')
+        fig.update_layout(
+            height=400, 
+            xaxis_tickformat=',',
+            font=dict(family="Noto Sans KR, sans-serif"),
+            title_font=dict(size=16, family="Noto Sans KR, sans-serif"),
+            legend=dict(
+                title="영상 유형",
+                labels={"true": "쇼츠", "false": "롱폼"}
+            )
+        )
         return fig
     
     def create_shorts_vs_longform_comparison(self):
