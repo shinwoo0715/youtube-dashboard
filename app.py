@@ -1484,55 +1484,56 @@ def display_keywords_analysis(visualizer):
     
     # Keyword analysis options
     analysis_source = st.selectbox(
-        "Analyze keywords from:",
+        "키워드 분석 대상:",
         ["titles", "descriptions", "tags"],
         format_func=lambda x: {
-            "titles": "📝 Video Titles",
-            "descriptions": "📄 Descriptions",
-            "tags": "🏷️ Tags"
+            "titles": "📝 영상 제목",
+            "descriptions": "📄 설명란",
+            "tags": "🏷️ 태그"
         }[x]
     )
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader(f"☁️ Word Cloud - {analysis_source.title()}")
+        st.subheader(f"☁️ 워드 클라우드 - { {'titles':'제목','descriptions':'설명','tags':'태그'}[analysis_source] }")
         wordcloud_fig = visualizer.create_wordcloud(source=analysis_source)
         if wordcloud_fig:
             st.pyplot(wordcloud_fig, use_container_width=True)
         else:
-            st.info(f"No {analysis_source} data available for word cloud generation.")
-    
+            st.info(f"{ {'titles':'제목','descriptions':'설명','tags':'태그'}[analysis_source] } 데이터가 부족하여 워드클라우드를 생성할 수 없습니다.")
+
     with col2:
-        st.subheader(f"📊 Top Keywords - {analysis_source.title()}")
+        st.subheader(f"📊 주요 키워드 - { {'titles':'제목','descriptions':'설명','tags':'태그'}[analysis_source] }")
         keywords_fig = visualizer.create_keywords_chart(source=analysis_source, top_n=20)
         if keywords_fig:
             st.plotly_chart(keywords_fig, use_container_width=True)
         else:
-            st.info(f"No {analysis_source} data available for keyword analysis.")
-    
-    # Successful video patterns
-    st.subheader("🎯 Successful Video Patterns")
+            st.info(f"{ {'titles':'제목','descriptions':'설명','tags':'태그'}[analysis_source] } 데이터가 부족하여 키워드 분석을 할 수 없습니다.")
+
+
+    # 성공 영상 패턴
+    st.subheader("🎯 성공 영상 패턴")
     patterns = visualizer.analyze_successful_patterns()
-    
+
     if patterns:
         col1, col2 = st.columns(2)
         
         with col1:
-            st.subheader("🔥 High-performing Keywords")
+            st.subheader("🔥 고성과 키워드")
             if patterns.get('top_keywords'):
                 for keyword, data in patterns['top_keywords'].items():
-                    st.write(f"**{keyword}**: {data['count']} videos, avg {data['avg_views']:,.0f} views")
+                    st.write(f"**{keyword}**: {data['count']}개 영상, 평균 {data['avg_views']:,.0f}회 조회수")
         
         with col2:
-            st.subheader("📈 Best Upload Times")
+            st.subheader("📈 최적 업로드 시간")
             if patterns.get('best_times'):
                 for time_info in patterns['best_times']:
-                    st.write(f"**{time_info['period']}**: Avg {time_info['avg_views']:,.0f} views ({time_info['count']} videos)")
+                    st.write(f"**{time_info['period']}**: 평균 {time_info['avg_views']:,.0f}회 ({time_info['count']}개 영상)")
 
 def display_detailed_data():
     """Display detailed video data with filtering and sorting"""
-    st.subheader("📊 Detailed Video Data")
+    st.subheader("📊 상세 영상 데이터")
     
     videos_data = st.session_state.channel_data['videos']
     df = pd.DataFrame(videos_data)
@@ -1542,14 +1543,14 @@ def display_detailed_data():
     
     with col1:
         video_type_filter = st.selectbox(
-            "Video Type",
-            ["All", "Shorts", "Long-form"],
+            "영상 유형",
+            ["전체", "쇼츠", "롱폼"],
             key="type_filter"
         )
     
     with col2:
         min_views = st.number_input(
-            "Minimum Views",
+            "최소 조회수",
             min_value=0,
             value=0,
             key="min_views_filter"
@@ -1557,7 +1558,7 @@ def display_detailed_data():
     
     with col3:
         date_range = st.date_input(
-            "Date Range",
+            "날짜 범위",
             value=[],
             key="date_filter"
         )
@@ -1573,7 +1574,7 @@ def display_detailed_data():
         filtered_df = filtered_df[filtered_df['view_count'] >= min_views]
     
     # Search functionality
-    search_term = st.text_input("🔍 Search in titles", key="search_filter")
+    search_term = st.text_input("🔍 제목 내 검색", key="search_filter")
     if search_term:
         filtered_df = filtered_df[filtered_df['title'].str.contains(search_term, case=False, na=False)]
     
@@ -1584,7 +1585,7 @@ def display_detailed_data():
     available_columns = ['title', 'published_at', 'view_count', 'like_count', 'comment_count', 
                         'duration_formatted', 'is_short', 'tags']
     selected_columns = st.multiselect(
-        "Select columns to display",
+        "표시할 컬럼 선택",
         available_columns,
         default=['title', 'published_at', 'view_count', 'like_count', 'comment_count', 'duration_formatted'],
         key="column_selector"
@@ -1595,14 +1596,14 @@ def display_detailed_data():
         
         # Format column names
         column_mapping = {
-            'title': 'Title',
-            'published_at': 'Published',
-            'view_count': 'Views',
-            'like_count': 'Likes',
-            'comment_count': 'Comments',
-            'duration_formatted': 'Duration',
-            'is_short': 'Type',
-            'tags': 'Tags'
+            'title': '제목',
+            'published_at': '업로드일',
+            'view_count': '조회수',
+            'like_count': '좋아요',
+            'comment_count': '댓글수',
+            'duration_formatted': '길이',
+            'is_short': '유형',
+            'tags': '태그'
         }
         
         display_df = display_df.rename(columns=column_mapping)
@@ -1618,7 +1619,7 @@ def display_detailed_data():
 
 def display_export_options(visualizer):
     """Display export and reporting options"""
-    st.subheader("📋 Export & Reports")
+    st.subheader("📋 내보내기 및 리포트")
     
     videos_data = st.session_state.channel_data['videos']
     channel_info = st.session_state.channel_data['channel_info']
@@ -1626,10 +1627,10 @@ def display_export_options(visualizer):
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader("📊 Data Export")
+        st.subheader("📊 데이터 내보내기")
         
         # CSV export
-        if st.button("📄 Export to CSV", use_container_width=True):
+        if st.button("📄 CSV로 내보내기", use_container_width=True):
             df = pd.DataFrame(videos_data)
             csv = df.to_csv(index=False)
             st.download_button(
@@ -1641,7 +1642,7 @@ def display_export_options(visualizer):
             )
         
         # JSON export
-        if st.button("📋 Export to JSON", use_container_width=True):
+        if st.button("📋 JSON으로 내보내기", use_container_width=True):
             import json
             json_data = json.dumps(st.session_state.channel_data, indent=2, default=str)
             st.download_button(
@@ -1653,7 +1654,7 @@ def display_export_options(visualizer):
             )
     
     with col2:
-        st.subheader("📈 Analysis Summary")
+        st.subheader("📈 분석 요약")
         
         # Generate summary report
         summary = visualizer.generate_summary_report(channel_info)
@@ -1670,9 +1671,9 @@ def display_export_options(visualizer):
         # Export summary as text
         summary_text = "\n".join([f"{k}: {v}" for k, v in summary.items()])
         st.download_button(
-            label="📄 Download Summary Report",
+            label="📄 요약 리포트 다운로드",
             data=summary_text,
-            file_name=f"{channel_info.get('title', 'channel')}_summary.txt",
+            file_name=f"{channel_info.get('title', '채널')}_summary.txt",
             mime='text/plain',
             use_container_width=True
         )

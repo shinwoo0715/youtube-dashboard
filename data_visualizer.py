@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -11,6 +12,19 @@ from collections import Counter
 import seaborn as sns
 import io
 import base64
+
+from matplotlib import font_manager, rc
+
+# 1. 폰트 경로 (상대경로 기준)
+font_path = "./font/BlackHanSans-Regular.ttf"   # or "font/BlackHanSans-Regular.ttf"
+
+# 2. 폰트 이름 얻기
+font_name = font_manager.FontProperties(fname=font_path).get_name()
+
+# 3. matplotlib 전역 폰트 적용
+plt.rc('font', family=font_name)
+
+# (워드클라우드 등에서 바로 반영)
 
 class DataVisualizer:
     """Comprehensive data visualization for YouTube channel analysis"""
@@ -409,6 +423,7 @@ class DataVisualizer:
         try:
             # Create word cloud
             wordcloud = WordCloud(
+                font_path=font_path,
                 width=800,
                 height=400,
                 background_color='white',
