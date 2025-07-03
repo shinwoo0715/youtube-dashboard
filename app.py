@@ -468,7 +468,9 @@ def display_success(success_msg):
 
 def main():
     initialize_session_state()
-    
+    st.title("유튜브 데이터 대시보드")
+    st.write("앱이 정상적으로 실행되었습니다.")
+
     # Main header with enhanced features
     st.markdown("""
     <div class="main-header">
